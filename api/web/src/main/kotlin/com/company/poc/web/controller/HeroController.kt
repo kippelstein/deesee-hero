@@ -12,6 +12,7 @@ import com.trendyol.kediatr.CommandBus
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.util.UriComponentsBuilder
 import java.util.*
 
 @RestController
@@ -41,11 +42,14 @@ internal class HeroController(
     @Operation(summary = "Add a new hero")
     @PostMapping()
     fun add(
-        @RequestBody addHero: AddHeroCommand
-    ): ResponseEntity<HeroDto> {
+        @RequestBody addHero: AddHeroCommand,
+        uriBuilder: UriComponentsBuilder
+    ): ResponseEntity<Void> {
         val res = this.bus.executeCommand(
             addHero
         )
-        return ResponseEntity.ok(res.toDto())
+
+        val location = uriBuilder.path("/heros/{name}").buildAndExpand(res.name).toUri()
+        return ResponseEntity.created(location).build()
     }
 }

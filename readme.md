@@ -22,3 +22,26 @@ Based on those design decision it is easy to write unit tests for the most parts
 what wasn't fully applied as mentioned above.
 
 Have fun on checking this out, i am looking forward to hear from you guys :)
+
+## Todos
+
+- Write integration tests for ...
+  - fetching all heros
+    - verify that 5 of 5 are returned
+    - verify status code 200 is returned
+  - fetching all heros with superpower `SPEED`
+    - verify that 1 of 5 is returned
+    - verify status code 200 is returned
+  - add a hero
+    - verify status code 201 is returned
+    - check/save location header
+  - add the same hero again
+    - verify that adding the same hero again leads to status code 500
+    - verify that the exception message contains your hero name
+  - fetch a single hero
+    - verify that your newly added hero is fetchable (location header)
+    - verify that status code 200 is returned
+    - verify that you properties match with the add request
+  - fetch a single hero which does not exists
+    - verify that status code is 404
+    - verify that the error message contains you hero name
