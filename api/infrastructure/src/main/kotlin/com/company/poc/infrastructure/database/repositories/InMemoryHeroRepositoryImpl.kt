@@ -36,4 +36,12 @@ internal class InMemoryHeroRepositoryImpl(
     override fun isExisting(name: String): Boolean {
         return heros.firstOrNull { it.name == name} != null
     }
+
+    override fun findByName(name: String): Hero {
+        val res = heros.firstOrNull { it.name.equals(name, true)};
+        if (res == null) {
+            throw NotFoundException("No hero found with the name '${name}'")
+        }
+        return res;
+    }
 }

@@ -10,4 +10,5 @@ interface HeroRepository {
     fun findAll(): ListResult<Hero>
     fun findAll(superpowers: List<SuperPower>): ListResult<Hero>
     fun isExisting(name: String): Boolean
+    fun findByName(name: String): Hero
 }

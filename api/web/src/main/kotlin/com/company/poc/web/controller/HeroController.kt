@@ -2,6 +2,7 @@ package com.company.poc.web.controller
 
 
 import com.company.poc.application.heros.add.AddHeroCommand
+import com.company.poc.application.heros.getBySuperpower.GetHeroByNameQuery
 import com.company.poc.application.heros.getBySuperpower.GetHeroBySuperpowerQuery
 import com.company.poc.domain.entities.SuperPower
 import com.company.poc.web.models.HeroDto
@@ -25,6 +26,15 @@ internal class HeroController(
         @RequestParam encryptionKey: Int?
     ): ResponseEntity<ListResultDto<HeroDto>> {
         val result = this.bus.executeQuery(GetHeroBySuperpowerQuery(superpowers, encryptionKey))
+        return ResponseEntity.ok(result.toDto())
+    }
+
+    @Operation(summary = "Get one hero by name")
+    @GetMapping("{name}")
+    fun getByName(
+        @PathVariable name: String,
+    ): ResponseEntity<HeroDto> {
+        val result = this.bus.executeQuery(GetHeroByNameQuery(name))
         return ResponseEntity.ok(result.toDto())
     }
 
